@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Web\Controllers" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Umbraco.Cms.Core" Version="9.2.0" />
+    </ItemGroup>
+
+</Project>
