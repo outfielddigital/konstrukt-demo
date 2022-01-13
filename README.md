@@ -16,3 +16,7 @@ On the content section there is a new "Pending Comments" dashboard that lists co
 ### Section
 
 A repositories section is added with a comments collection to allow full management of all comments regardless of which blog post they are associated with.
+
+## How to use
+
+Pull the source for the project and launch the `Konstrukt.Demo.Web` project. You can access the back office at `/umbraco` with admin credentials beign `admin@admin.com` / `password1234`.
