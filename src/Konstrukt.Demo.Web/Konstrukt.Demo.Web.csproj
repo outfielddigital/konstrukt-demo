@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+       <PackageReference Include="Konstrukt" Version="0.1.0-alpha0036" />
         <PackageReference Include="Umbraco.Cms" Version="9.2.0" />
     </ItemGroup>
 

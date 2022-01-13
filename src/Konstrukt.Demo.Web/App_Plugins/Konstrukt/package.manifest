@@ -1,0 +1,77 @@
+﻿{
+	propertyEditors: [
+		{
+			alias: "Konstrukt.EntityPicker",
+			name: "Konstrukt Entity Picker",
+			editor: {
+				view: "~/App_Plugins/Konstrukt/backoffice/propertyeditors/entitypicker.html"
+			},
+			prevalues: {
+				fields: [
+					{
+						label: "Collection",
+						key: "collection",
+						view: "~/App_Plugins/Konstrukt/backoffice/prevalues/collectionpicker.html",
+						hideLabel: true
+					},
+					{
+						label: "Minimum number of items",
+						description: "Enter the minimum number of items that can be selected",
+						key: "minItems",
+						view: "number"
+					},
+					{
+						label: "Maximum number of items",
+						description: "Enter the maximum number of items that can be selected",
+						key: "maxItems",
+						view: "number"
+					},
+					{
+						label: "Show open button",
+						description: "Show a button to redirect the back office to the editor page of the selected item",
+						key: "showOpen",
+						view: "boolean"
+					}
+				]
+			}
+
+		}
+    ],
+    javascript: [
+
+		'~/App_Plugins/Konstrukt/backoffice/overrides/konstrukt.overrides.js',
+
+        '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.utility.service.js',
+        '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.requesthelper.service.js',
+        '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.bulkactions.service.js',
+        '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.routecache.service.js',
+
+        '~/App_Plugins/Konstrukt/backoffice/resources/konstrukt.resource.js',
+
+		'~/App_Plugins/Konstrukt/backoffice/konstrukt/sectiondashboard.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/konstrukt/dashboard.controller.js',
+	    '~/App_Plugins/Konstrukt/backoffice/konstrukt/edit.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/konstrukt/delete.controller.js', 
+		'~/App_Plugins/Konstrukt/backoffice/konstrukt/list.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/konstrukt/contextapp.controller.js',
+
+		'~/App_Plugins/Konstrukt/backoffice/konstrukt-settings/dashboard.controller.js',
+
+		'~/App_Plugins/Konstrukt/backoffice/propertyeditors/entitypicker.controller.js',
+
+		'~/App_Plugins/Konstrukt/backoffice/prevalues/collectionpicker.controller.js',
+
+		'~/App_Plugins/Konstrukt/backoffice/dialogs/entitypicker.controller.js',
+
+		'~/App_Plugins/Konstrukt/backoffice/directives/listview.directive.js',
+		'~/App_Plugins/Konstrukt/backoffice/directives/minilistview.directive.js',
+		'~/App_Plugins/Konstrukt/backoffice/directives/collectionlistview.directive.js',
+		'~/App_Plugins/Konstrukt/backoffice/directives/message.directive.js',
+		'~/App_Plugins/Konstrukt/backoffice/directives/licensecheck.directive.js',
+
+    ],
+    css: [
+		'~/App_Plugins/Konstrukt/backoffice/css/konstrukt.css'
+	]
+	
+}

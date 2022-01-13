@@ -1,0 +1,28 @@
+<div ng-controller="Konstrukt.Controllers.ContextAppController as vm" class="konstrukt__context-app">
+
+    <div class="konstrukt__tabbed-content">
+
+        <div class="konstrukt__tabbed-content__header" ng-if="vm.tabs && vm.tabs.length > 1">
+            <umb-tabs-nav tabs="vm.tabs"
+                on-tab-change="vm.changeTab(vm.tabs, tab)">
+            </umb-tabs-nav>
+        </div>
+
+        <div class="konstrukt__tabbed-content__content">
+
+            <umb-tab-content ng-repeat="tab in vm.tabs" ng-if="tab.active" tab="tab" class="row-fluid">
+
+                <konstrukt-collection-list-view
+                        collection-alias="tab.collection.alias"
+                        open-in-infinite-editor="true"
+                        show-create-button="true"
+                        parent-entity-id="vm.nodeUdi">
+                </konstrukt-collection-list-view>
+
+            </umb-tab-content>
+
+        </div>
+
+    </div>
+
+</div>

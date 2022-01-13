@@ -5,11 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Web\Controllers" />
-    </ItemGroup>
-
-    <ItemGroup>
+        <PackageReference Include="Konstrukt.Startup" Version="0.1.0-alpha0036" />
       <PackageReference Include="Umbraco.Cms.Core" Version="9.2.0" />
+      <PackageReference Include="Umbraco.Cms.Infrastructure" Version="9.2.0" />
+      <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.2.0" /> 
     </ItemGroup>
 
 </Project>

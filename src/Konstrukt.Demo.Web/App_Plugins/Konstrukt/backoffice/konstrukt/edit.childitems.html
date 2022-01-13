@@ -1,0 +1,26 @@
+﻿<div>
+    <div class="konstrukt__tabbed-content" ng-if="model.currentApp">
+
+        <div class="konstrukt__tabbed-content__header" ng-if="model.currentApp.tabs && model.currentApp.tabs.length > 1">
+            <umb-tabs-nav tabs="model.currentApp.tabs"
+                on-tab-change="model.changeTab(model.currentApp.tabs, tab)">
+            </umb-tabs-nav>
+        </div>
+
+        <div class="konstrukt__tabbed-content__content">
+
+            <umb-tab-content ng-repeat="tab in model.currentApp.tabs" ng-if="tab.active" tab="tab" class="row-fluid">
+
+                <konstrukt-collection-list-view
+                    collection-alias="tab.collection.alias"
+                    open-in-infinite-editor="true"
+                    show-create-button="!model.page.isNew"
+                    parent-entity-id="model.entityId">
+                </konstrukt-collection-list-view>
+
+            </umb-tab-content>
+
+        </div>
+
+    </div>
+</div>

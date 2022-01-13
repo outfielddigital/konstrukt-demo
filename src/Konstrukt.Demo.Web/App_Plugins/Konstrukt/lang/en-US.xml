@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+  <creator>
+    <name>Konstrukt</name>
+    <link>https://konstrukt.io</link>
+  </creator>
+  <area alias="sections">
+    <key alias="konstrukt">Konstrukt</key>
+    <key alias="mysection" autogen="true">My Section</key>
+    <key alias="repositories" autogen="true">Repositories</key>
+  </area>
+  <area alias="dashboardTabs">
+    <key alias="summary">Summary</key>
+    <key alias="konstrukt">Konstrukt</key>
+    <key alias="pendingcomments" autogen="true">Pending Comments</key>
+  </area>
+</language>

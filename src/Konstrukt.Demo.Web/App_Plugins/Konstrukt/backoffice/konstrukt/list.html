@@ -1,0 +1,39 @@
+﻿<div ng-controller="Konstrukt.Controllers.ListViewController" class="konstrukt">
+
+    <umb-load-indicator ng-show="page.loading"></umb-load-indicator>
+
+    <umb-editor-view ng-show="!page.loading">
+
+        <umb-editor-header menu="page.menu"
+            name="page.name"
+            name-locked="true"
+            hide-icon="true"
+            hide-description="true"
+            hide-alias="true">
+        </umb-editor-header>
+
+        <umb-editor-container class="form-horizontal">
+
+            <konstrukt-license-check></konstrukt-license-check>
+
+            <konstrukt-collection-list-view
+                collection-alias="collectionAlias"
+                on-collection-loaded="onCollectionLoaded(collection)"
+                open-in-infinite-editor="false">
+            </konstrukt-collection-list-view>
+
+        </umb-editor-container>
+
+        <umb-editor-footer>
+            <umb-editor-footer-content-left>
+                <umb-breadcrumbs
+                    ng-if="page.breadcrumb && page.breadcrumb.items && page.breadcrumb.items.length > 0"
+                    ancestors="page.breadcrumb.items"
+                    on-open="page.breadcrumb.itemClick(ancestor)">
+                </umb-breadcrumbs>
+            </umb-editor-footer-content-left>
+        </umb-editor-footer>
+
+    </umb-editor-view>
+
+</div>

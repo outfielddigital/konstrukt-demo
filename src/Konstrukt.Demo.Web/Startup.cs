@@ -42,8 +42,8 @@ namespace Konstrukt.Demo.Web
             services.AddUmbraco(_env, _config)
                 .AddBackOffice()
                 .AddWebsite()
-                .AddComposers()
                 .AddKonstruktDemo()
+                .AddComposers()
                 .Build();
 #pragma warning restore IDE0022 // Use expression body for methods
 

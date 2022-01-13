@@ -1,0 +1,209 @@
+﻿/*
+ * Required Notice: 
+ * - Copyright Outfield Digital Ltd
+ *   https://outfield.digital
+*/
+
+@font-face {
+    font-family: 'konstrukt';
+    src: url('fonts/konstrukt.woff?qrp6tb') format('woff'), url('fonts/konstrukt.svg?qrp6tb#konstrukt') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+.icon-konstrukt_k:before {
+    font-family: 'konstrukt';
+    content: "\6b";
+}
+
+/* Entity picker dialog */
+.konstrukt__mini-list-view .umb-table-row:hover {
+    background-color: #f9f7f5;
+}
+
+/* Tabbed Content */
+.konstrukt__tabbed-content__header {
+    background-color: white;
+    margin: -20px -20px 20px -20px;
+    padding: 0 10px;
+}
+
+.konstrukt__tabbed-content__header .umb-tab > .umb-tab-button {
+    padding-top: 20px;
+}
+
+/* Dashboard */
+.konstrukt__dashboard__item .inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #d6d6d8;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: border-color 100ms ease;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.konstrukt__dashboard__item .inner .umb-package-description {
+    white-space: normal;
+}
+
+.konstrukt__dashboard__item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(53, 68, 177, .9); /* rgba(27, 38, 79, .9);*/ /* rgba(245, 193, 188, .9);*/
+    border-radius: 3px;
+    box-sizing: border-box;
+    text-align: center;
+    vertical-align: middle;
+    transition: opacity 100ms ease;
+    opacity: 0;
+    z-index: 5;
+}
+
+.konstrukt__dashboard__item .inner:hover .konstrukt__dashboard__item-overlay,
+.konstrukt__dashboard__item .inner:focus .konstrukt__dashboard__item-overlay {
+    opacity: 1;
+}
+
+.konstrukt__dashboard__item-overlay:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+.konstrukt__dashboard__item-overlay a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0 5px;
+    text-decoration: none !important;
+    transition: background-color 100ms ease, color 100ms ease;
+}
+
+.konstrukt__dashboard__item-overlay a:hover,
+.konstrukt__dashboard__item-overlay a:focus {
+    background-color: rgb(245, 193, 188);
+    color: rgb(27, 38, 79);
+}
+
+.konstrukt__dashboard__item__icon {
+    font-size: 30px !important;
+}
+
+/* Layouts */
+.konstrukt-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.konstrukt-layout .vendr-layout__right {
+    margin-top: 20px;
+}
+
+.konstrukt-layout.konstrukt-layout--reverse .konstrukt-layout__right {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.konstrukt-layout__left > *:last-child,
+.konstrukt-layout__right > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+@media screen and (min-width: 1350px) {
+    .konstrukt-layout {
+        flex-direction: row;
+    }
+
+    .konstrukt-layout.konstrukt-layout--reverse {
+        flex-direction: row-reverse;
+    }
+
+    .konstrukt-layout--layout1 .konstrukt-layout__left {
+        flex: 1 1 auto;
+        margin-right: 20px;
+        width: calc(100% - 370px);
+    }
+
+    .konstrukt-layout--layout1 .konstrukt-layout__right {
+        flex: 0 0 350px;
+        margin-top: 0;
+        align-self: end
+    }
+}
+
+/* Message */
+.konstrukt-message {
+    position: relative;
+    overflow: hidden;
+    padding: 10px 20px 10px 50px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+}
+
+.konstrukt-message__heading {
+    font-weight: bold;
+    position: relative;
+}
+
+.konstrukt-message__icon {
+    position: absolute;
+    left: -30px;
+}
+
+.konstrukt-message__icon-watermark {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    font-size: 150px;
+    opacity: .1;
+    z-index: 0;
+}
+
+.konstrukt-message__body {
+    position: relative;
+    z-index: 1;
+}
+
+.konstrukt-message a {
+    text-decoration: underline;
+}
+
+.konstrukt-message--warn {
+    border: solid 1px #ff9800;
+    background-color: #ffeacc;
+}
+
+    .konstrukt-message--warn .konstrukt-message__icon,
+    .konstrukt-message--warn .konstrukt-message__icon-watermark {
+        color: #ff9800;
+    }
+
+.konstrukt-message--info {
+    border: solid 1px #2196f3;
+    background-color: #e9f5fe;
+}
+
+    .konstrukt-message--info .konstrukt-message__icon,
+    .konstrukt-message--info .konstrukt-message__icon-watermark {
+        color: #2196f3;
+    }

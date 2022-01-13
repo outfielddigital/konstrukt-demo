@@ -1,0 +1,34 @@
+﻿<div class="konstrukt__tabbed-content">
+
+    <div class="konstrukt__tabbed-content__header" ng-if="model.content.tabs && model.content.tabs.length > 1">
+        <umb-tabs-nav tabs="model.content.tabs"
+            on-tab-change="model.changeTab(model.content.tabs, tab)">
+        </umb-tabs-nav>
+    </div>
+
+    <div class="konstrukt__tabbed-content__content">
+
+        <umb-tab-content ng-repeat="tab in model.content.tabs" ng-if="tab.active" tab="tab" class="row-fluid">
+
+            <div class="umb-group-panel" ng-repeat="fset in tab.fieldsets track by fset.alias">
+
+                <div class="umb-group-panel__header">
+                    <div>{{ fset.label }}</div>
+                </div>
+
+                <div class="umb-group-panel__content">
+
+                    <umb-property ng-repeat="property in fset.properties" data-element="property-{{property.alias}}" property="property">
+                        <umb-property-editor model="property"></umb-property-editor>
+                    </umb-property>
+
+                </div>
+            </div>
+
+            
+
+        </umb-tab-content>
+
+    </div>
+
+</div>

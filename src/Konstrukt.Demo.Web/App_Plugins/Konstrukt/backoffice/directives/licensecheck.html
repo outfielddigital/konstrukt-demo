@@ -1,0 +1,7 @@
+﻿<div>
+    <div ng-if="licensingInfo">
+        <konstrukt-message ng-if="!licensingInfo.isLicensed" type="'warn'" heading="'Unlicensed'" icon="'exclamation-triangle'">
+            <p>Konstrukt is currently running in an unlicensed mode. You will only be able to save changes to a single Konstrukt entity collection untill a valid license is installed. You can purchase a license from <a href="https://getkonstrukt.net?ref=lic-check" target="_blank">the Konstrukt website</a>.</p>
+        </konstrukt-message>
+    </div>
+</div>

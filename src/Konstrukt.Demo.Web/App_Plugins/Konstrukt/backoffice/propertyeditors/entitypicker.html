@@ -1,0 +1,44 @@
+﻿<div class="konstrukt konstrukt__entity-picker umb-property-editor umb-contentpicker" ng-controller="Konstrukt.Controllers.EntityPickerController">
+
+    <ng-form name="entityPickerForm">
+
+        <div ui-sortable="sortableOptions" ng-model="renderModel">
+            <umb-node-preview ng-repeat="node in renderModel track by node.id"
+                icon="node.icon"
+                name="node.name"
+                published="node.published"
+                description="'/' + node.collectionSourceAlias + '/' + node.collectionAlias + '/' + node.id"
+                sortable="!sortableOptions.disabled"
+                allow-remove="true"
+                allow-open="configOptions.showOpen && !dialogEditor"
+                on-remove="removeItem($index)"
+                on-open="openItem(node)">
+            </umb-node-preview>
+        </div>
+
+        <button type="button" ng-show="(model.config.maxItems > 1 && renderModel.length < model.config.maxItems) || renderModel.length === 0"
+                class="umb-node-preview-add"
+                ng-click="openPicker()"
+                aria-label="Add item" prevent-default>
+            <localize key="general_add">Add</localize>
+            <span class="sr-only">...</span>
+        </button>
+
+        <!--These are here because we need ng-form fields to validate against-->
+        <input type="hidden" name="minCount" ng-model="renderModel" />
+        <input type="hidden" name="maxCount" ng-model="renderModel" />
+
+        <div ng-messages="entityPickerForm.minCount.$error" show-validation-on-submit>
+            <div class="help-inline" ng-message="minCount">
+                <localize key="validation_minCount">You need to add at least</localize> {{model.config.minItems}} <localize key="validation_items">items</localize>
+            </div>
+        </div>
+        <div ng-messages="entityPickerForm.maxCount.$error" show-validation-on-submit>
+            <div class="help-inline" ng-message="maxCount">
+                <localize key="validation_maxCount">You can only have</localize> {{model.config.maxItems}} <localize key="validation_itemsSelected">items selected</localize>
+            </div>
+        </div>
+
+    </ng-form>
+
+</div>
