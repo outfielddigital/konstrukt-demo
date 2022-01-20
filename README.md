@@ -20,3 +20,19 @@ A repositories section is added with a comments collection to allow full managem
 ## How to use
 
 Pull the source for the project and launch the `Konstrukt.Demo.Web` project. You can access the back office at `/umbraco` with admin credentials beign `admin@admin.com` / `password1234`.
+
+## Requirements
+
+The demo uses a SQL Local DB file for SQL 2019 so you'll need to make sure you have the 2019 LocalDB files installed. You can get these from the SQL Express 2019 installer (you don't need to install SQL Express 2019, it's just one of the install options). If you have multiple versions of LocalDB installed you might need to create a new Local DB instance
+
+````
+sqllocaldb create MSSQLLocalDb15 15.0
+````
+
+...and then update the connection string in the web project app settings.
+
+````
+"ConnectionStrings": {
+    "umbracoDbDSN": "Data Source=(localdb)\\MSSQLLocalDB15;AttachDbFilename=|DataDirectory|\\Umbraco.mdf;Integrated Security=True"
+},
+````
