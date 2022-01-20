@@ -23,7 +23,7 @@ Pull the source for the project and launch the `Konstrukt.Demo.Web` project. You
 
 ## Requirements
 
-The demo uses a SQL Local DB file for SQL 2019 so you'll need to make sure you have the 2019 LocalDB files installed. You can get these from the SQL Express 2019 installer (you don't need to install SQL Express 2019, it's just one of the install options). If you have multiple versions of LocalDB installed you might need to create a new Local DB instance
+The demo uses a SQL Local DB file for SQL 2019 so you'll need to [make sure you have the 2019 LocalDB files installed](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15#installation-media). If you have multiple versions of LocalDB installed you might need to create a new Local DB instance
 
 ````
 sqllocaldb create MSSQLLocalDb15 15.0
