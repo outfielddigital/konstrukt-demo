@@ -17,10 +17,6 @@ On the content section there is a new "Pending Comments" dashboard that lists co
 
 A repositories section is added with a comments collection to allow full management of all comments regardless of which blog post they are associated with.
 
-## How to use
-
-Pull the source for the project and launch the `Konstrukt.Demo.Web` project. You can access the back office at `/umbraco` with admin credentials beign `admin@admin.com` / `password1234`.
-
 ## Requirements
 
 The demo uses a SQL Local DB file for SQL 2019 so you'll need to [make sure you have the 2019 LocalDB files installed](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15#installation-media). If you have multiple versions of LocalDB installed you might need to create a new Local DB named instance explicitly stating the version (15.0 == SQL 2019)
@@ -36,3 +32,7 @@ sqllocaldb create MSSQLLocalDb15 15.0
     "umbracoDbDSN": "Data Source=(localdb)\\MSSQLLocalDB15;AttachDbFilename=|DataDirectory|\\Umbraco.mdf;Integrated Security=True"
 },
 ````
+
+## How to use
+
+Pull the source for the project and launch the `Konstrukt.Demo.Web` project. You can access the back office at `/umbraco` with admin credentials beign `admin@admin.com` / `password1234`.
