@@ -68,6 +68,7 @@
 		'~/App_Plugins/Konstrukt/backoffice/directives/collectionlistview.directive.js',
 		'~/App_Plugins/Konstrukt/backoffice/directives/message.directive.js',
 		'~/App_Plugins/Konstrukt/backoffice/directives/licensecheck.directive.js',
+		'~/App_Plugins/Konstrukt/backoffice/directives/cards.directive.js',
 
     ],
     css: [

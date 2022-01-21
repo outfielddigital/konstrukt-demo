@@ -1,4 +1,8 @@
 ﻿<div>
+    <konstrukt-cards ng-if="collection && collection.listView && collection.listView.cards && collection.listView.cards.length > 0"
+        cards="collection.listView.cards" collection-alias="collection.alias" parent-entity-id="parentEntityId">
+    </konstrukt-cards>
+    
     <konstrukt-list-view ng-if="collection"
         collection="collection"
         options="listView.options"

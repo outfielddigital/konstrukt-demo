@@ -213,6 +213,21 @@
                     'Failed to get licensing info'
                 );
             },
+            
+            getCardValue: function (collectionAlias, cardAlias, parentId) {
+                return umbRequestHelper.resourcePromise(
+                    $http({
+                        url: konstruktRequestHelper.getApiUrl("konstruktApiBaseUrl", "GetCardValue"),
+                        method: "GET",
+                        params: {
+                            collectionAlias: collectionAlias,
+                            cardAlias: cardAlias,
+                            parentId: parentId
+                        }
+                    }),
+                    'Failed to get entity total record count'
+                );
+            }
 
         };
 

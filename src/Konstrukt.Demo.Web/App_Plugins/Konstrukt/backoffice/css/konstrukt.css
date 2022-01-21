@@ -207,3 +207,59 @@
     .konstrukt-message--info .konstrukt-message__icon-watermark {
         color: #2196f3;
     }
+    
+/* Cards */
+
+.konstrukt-cards {
+    margin-bottom: 20px;
+}
+
+.konstrukt-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 3px;
+    padding: 15px;
+    border: solid 1px #f5f5f5;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 16%);
+}
+
+.konstrukt-card__icon {
+    display: flex;
+    align-items: center;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 30px;
+    vertical-align: baseline;
+    justify-content: center;
+}
+
+.konstrukt-card__body {
+    padding-left: 15px;
+}
+
+.konstrukt-card__body h3 {
+    margin: 0 0 2px;
+    padding: 0;
+    line-height: 1em;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.konstrukt-card__suffix {
+    color: black;
+    font-weight: 900;
+    padding-left: 2px;
+}
+
+.konstrukt-card__body h4 {
+    margin: 0;
+    padding: 0;
+    line-height: 1em;
+    font-weight: bold;    
+    font-size: 12px;
+    color: #888;
+}
