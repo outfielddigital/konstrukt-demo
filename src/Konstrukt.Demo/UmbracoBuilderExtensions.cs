@@ -74,9 +74,7 @@ namespace Konstrukt.Demo
                             .SetDateCreatedProperty(c => c.DateCreated)
                             .AddSearchableProperty(c => c.Email)
                             .ListView(listViewConfig => listViewConfig
-                                .AddCard("Pending Comments", "icon-chat", x => x.Status == CommentStatus.Pending, cardConfig => cardConfig
-                                    .SetColor("orange")
-                                )
+                                .AddCard("Pending Comments", "icon-chat", x => x.Status == CommentStatus.Pending).SetColor("orange")
                                 .AddCard("Total Comments", "icon-chat", x => x.Status == CommentStatus.Pending || x.Status == CommentStatus.Approved || x.Status == CommentStatus.Rejected)
                                 .SetDataViewsBuilder<CommentStatusDataViewsBuilder>()
                                 .AddField(c => c.Email)
