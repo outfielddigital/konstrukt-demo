@@ -73,17 +73,19 @@ namespace Konstrukt.Demo
                             .SetNameProperty(c => c.Name)
                             .SetDateCreatedProperty(c => c.DateCreated)
                             .AddSearchableProperty(c => c.Email)
+                            .AddFilterableProperty(c => c.Email)
+                            .AddFilterableProperty(c => c.Status)
+                            .AddCard("Pending Comments", "icon-chat", x => x.Status == CommentStatus.Pending).SetColor("orange")
+                            .AddCard("Total Comments", "icon-chat", x => x.Status == CommentStatus.Pending || x.Status == CommentStatus.Approved || x.Status == CommentStatus.Rejected)
+                            .SetDataViewsBuilder<CommentStatusDataViewsBuilder>()
                             .ListView(listViewConfig => listViewConfig
-                                .AddCard("Pending Comments", "icon-chat", x => x.Status == CommentStatus.Pending).SetColor("orange")
-                                .AddCard("Total Comments", "icon-chat", x => x.Status == CommentStatus.Pending || x.Status == CommentStatus.Approved || x.Status == CommentStatus.Rejected)
-                                .SetDataViewsBuilder<CommentStatusDataViewsBuilder>()
                                 .AddField(c => c.Email)
                                 .AddField(c => c.Status)
                             ) 
                             .Editor(editorConfig => editorConfig
                                 .AddTab("General", tabConfig => tabConfig
                                     .AddFieldset("General", fieldsetConfig => fieldsetConfig
-                                        .AddField(c => c.NodeUdi).SetLabel("Node").SetDataType("Content Picker").SetValueMapper<UdiToIntContentPickerValueMapper>()
+                                        .AddField(c => c.NodeUdi).SetLabel("Node").SetDataType("Content Picker")
                                         .AddField(c => c.Email).SetValidationRegex("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+")
                                         .AddField(c => c.Body).SetDataType("Textarea")
                                         .AddField(c => c.Status).SetDataType("Comment Status").SetValueMapper<EnumDropdownValueMapper<CommentStatus>>()
