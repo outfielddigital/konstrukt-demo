@@ -70,7 +70,10 @@
                                 <umb-control-group label="Plan" ng-if="license.plan">{{license.plan}}</umb-control-group>
                                 <umb-control-group label="Domains" ng-if="license.fingerprintType == 'Domain'">
                                     <ul>
-                                        <li ng-repeat="domain in license.fingerprints">{{domain}}</li>
+                                        <li ng-repeat="domain in license.fingerprints">
+                                            <span ng-if="domain == '*'">Unlimited</span>
+                                            <span ng-if="domain != '*'">{{domain}}</span>
+                                        </li>
                                     </ul>
                                 </umb-control-group>
                                 <umb-control-group label="Instance IDs" ng-if="license.fingerprintType == 'InstanceId'">

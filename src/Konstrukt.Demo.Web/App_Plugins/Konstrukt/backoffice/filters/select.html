@@ -1,0 +1,7 @@
+﻿<div class="konstrukt" ng-controller="Konstrukt.Controllers.SelectFilterController">
+    <select class="umb-property-editor umb-dropdown" ng-model="model.value[0]">
+        <option ng-repeat="opt in options" ng-selected="model.value[0] == opt.key" value="{{ opt.key }}">
+            {{ opt.label }}
+        </option>
+    </select>
+</div>

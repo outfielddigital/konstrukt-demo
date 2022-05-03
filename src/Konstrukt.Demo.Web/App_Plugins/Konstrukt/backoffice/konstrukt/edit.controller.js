@@ -39,6 +39,7 @@
 
         vm.page.menu = {}; 
         vm.page.menu.currentNode = null;
+        vm.page.menu.currentSection = sectionAlias;
 
         vm.page.navigation = [
             {
@@ -297,11 +298,11 @@
             }
         });
 
-        //$scope.$on("konstruktEntityDeleted", function (evt, args) {
-        //    if (args.entityType === 'OrderStatus' && args.storeId === storeId && args.entityId === id) {
-        //        vm.back();
-        //    }
-        //});
+        $scope.$on("konstrukt.entityDeleted", function (evt, args) {
+            if (args.collectionAlias === collectionAlias && args.entityIds.includes(id)) {
+                vm.back();
+            }
+        });
 
     }
 

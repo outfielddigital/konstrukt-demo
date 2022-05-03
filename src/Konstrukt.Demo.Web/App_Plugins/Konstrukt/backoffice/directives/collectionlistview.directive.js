@@ -48,6 +48,9 @@
                         $location.path(item.editPath);
                     }
                 },
+                onAction: function (action, ids, settings) {
+                    return konstruktResource.performAction($scope.collection.alias, action.type, action.alias, ids, settings, action.resultType);
+                },
                 onItemCreate: function () {
                     if ($scope.openInInfiniteEditor) {
                         editorService.open({
@@ -75,6 +78,8 @@
                 $scope.listView.options.defaultOrderBy = collection.listView.defaultOrderBy;
                 $scope.listView.options.defaultOrderDirection = collection.listView.defaultOrderDirection;
                 $scope.listView.options.bulkActions = collection.listView.bulkActions;
+                $scope.listView.options.rowActions = collection.listView.rowActions;
+                $scope.listView.options.filters = collection.listView.filters;
                 $scope.listView.options.dataViews = collection.listView.dataViews;
                 $scope.listView.options.layouts = collection.listView.layouts;
                 $scope.listView.options.properties = collection.listView.properties;

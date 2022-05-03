@@ -165,6 +165,16 @@
 
                 return breadcrumb;
             },
+
+            downloadFile: function (file, filename) {
+                var url = window.URL || window.webkitURL;
+                var element = document.createElement('a');
+                element.setAttribute('href', url.createObjectURL(file));
+                element.setAttribute('download', filename);
+                document.body.appendChild(element);
+                element.click();
+                element.remove();
+            },
         };
 
         return service;

@@ -1,0 +1,39 @@
+﻿<div ng-controller="Konstrukt.Controllers.ListViewLayoutController" class="konstrukt">
+
+    <div class="umb-content-grid">
+
+        <div class="umb-content-grid__item umb-outline umb-outline--surrounding"
+             ng-repeat="item in items"
+             ng-class="{'-selected': item.selected}"
+             ng-init="item.icon = getIcon(item)"
+             ng-click="selectItem(item, $event, $index)">
+
+            <div class="umb-content-grid__content">
+
+                <a class="umb-content-grid__item-name umb-outline" ng-href="{{'#' + item.editPath}}" ng-click="clickItem(item, $event)">
+                    <umb-icon icon="{{item.icon}}" class="umb-content-grid__icon"></umb-icon>
+                    <span>{{item.name}}</span>
+                </a>
+
+                <ul class="umb-content-grid__details-list">
+                    <li class="umb-content-grid__details-item" ng-repeat="property in options.includeProperties">
+                        <div class="umb-content-grid__details-label">{{ property.header }}:</div>
+                        <div class="umb-content-grid__details-value">{{ item.propertyMap[property.alias].value }}</div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <umb-empty-state ng-if="!items && options.filter.length === 0" position="center">
+        <localize key="content_listViewNoContent">No content has been added</localize>
+    </umb-empty-state>
+
+    <umb-empty-state ng-if="!items && options.filter.length > 0" position="center">
+        <localize key="general_searchNoResult">Sorry, we can not find what you are looking for.</localize>
+    </umb-empty-state>
+
+</div>

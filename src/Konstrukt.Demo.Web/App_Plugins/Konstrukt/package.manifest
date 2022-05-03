@@ -41,10 +41,13 @@
 
 		'~/App_Plugins/Konstrukt/backoffice/overrides/konstrukt.overrides.js',
 
+        '~/App_Plugins/Konstrukt/backoffice/providers/actionresulthandlers.provider.js',
+
         '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.utility.service.js',
         '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.requesthelper.service.js',
-        '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.bulkactions.service.js',
         '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.routecache.service.js',
+        '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.menuaction.service.js',
+        '~/App_Plugins/Konstrukt/backoffice/services/konstrukt.action.service.js',
 
         '~/App_Plugins/Konstrukt/backoffice/resources/konstrukt.resource.js',
 
@@ -62,6 +65,8 @@
 		'~/App_Plugins/Konstrukt/backoffice/prevalues/collectionpicker.controller.js',
 
 		'~/App_Plugins/Konstrukt/backoffice/dialogs/entitypicker.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/dialogs/settings.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/dialogs/filter.controller.js',
 
 		'~/App_Plugins/Konstrukt/backoffice/directives/listview.directive.js',
 		'~/App_Plugins/Konstrukt/backoffice/directives/minilistview.directive.js',
@@ -69,6 +74,14 @@
 		'~/App_Plugins/Konstrukt/backoffice/directives/message.directive.js',
 		'~/App_Plugins/Konstrukt/backoffice/directives/licensecheck.directive.js',
 		'~/App_Plugins/Konstrukt/backoffice/directives/cards.directive.js',
+
+		'~/App_Plugins/Konstrukt/backoffice/listview/listviewlayout.controller.js',
+
+		'~/App_Plugins/Konstrukt/backoffice/filters/text.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/filters/select.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/filters/numberrange.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/filters/daterange.controller.js',
+		'~/App_Plugins/Konstrukt/backoffice/filters/checkbox.controller.js',
 
     ],
     css: [

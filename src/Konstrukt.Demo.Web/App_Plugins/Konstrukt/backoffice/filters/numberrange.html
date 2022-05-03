@@ -1,0 +1,12 @@
+﻿<div class="konstrukt" ng-controller="Konstrukt.Controllers.NumberRangeFilterController" style="display:flex; gap: 10px;">
+    <input type="number"
+           id="{{ model.alias + '_from' }}"
+           placeholder="From"
+           ng-model="model.value[0]"
+           class="umb-property-editor umb-textstring textstring" />
+    <input type="number"
+           id="{{ model.alias + '_to' }}"
+           placeholder="To"
+           ng-model="model.value[1]"
+           class="umb-property-editor umb-textstring textstring" />
+</div>

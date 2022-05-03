@@ -1,0 +1,65 @@
+﻿<div class="konstrukt" ng-controller="Konstrukt.Controllers.SettingsDialogController">
+
+    <form name="contentForm"
+          ng-submit="save()"
+          novalidate
+          val-form-manager>
+
+        <umb-load-indicator ng-if="loading"></umb-load-indicator>
+
+        <umb-editor-view>
+
+            <umb-editor-header name="page.name"
+                name-locked="true"
+                hide-alias="true"
+                hide-icon="true"
+                hide-description="true">
+            </umb-editor-header>
+
+            <umb-editor-container>
+
+                <div ng-if="!loading">
+
+                    <div class="umb-group-panel" ng-repeat="fset in settingsModel.fieldsets track by fset.alias">
+
+                        <div class="umb-group-panel__header">
+                            <div>{{ fset.label }}</div>
+                        </div>
+
+                        <div class="umb-group-panel__content">
+
+                            <umb-property ng-repeat="property in fset.properties" data-element="property-{{property.alias}}" property="property">
+                                <umb-property-editor model="property"></umb-property-editor>
+                            </umb-property>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+
+                    <umb-button type="button"
+                        button-style="link"
+                        label="Cancel"
+                        shortcut="esc"
+                        action="close()">
+                    </umb-button>
+
+                    <umb-button type="submit"
+                        button-style="success"
+                        state="page.saveButtonState"
+                        label="Continue">
+                    </umb-button>
+
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+    </form>
+
+</div>

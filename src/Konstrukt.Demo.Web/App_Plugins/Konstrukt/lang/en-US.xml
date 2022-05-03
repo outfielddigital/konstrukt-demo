@@ -14,4 +14,7 @@
     <key alias="konstrukt">Konstrukt</key>
     <key alias="pendingcomments" autogen="true">Pending Comments</key>
   </area>
+  <area alias="actions">
+    <key alias="delete" autogen="true">Delete</key>
+  </area>
 </language>

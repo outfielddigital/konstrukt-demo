@@ -1,0 +1,11 @@
+﻿<div class="konstrukt" ng-controller="Konstrukt.Controllers.CheckboxFilterController" style="display: grid; gap: 15px; grid-template-columns: 1fr 1fr;">
+    <div ng-repeat="opt in options">
+        <umb-toggle checked="model.value.includes(opt.key)" 
+            on-click="toggleOption(opt.key)"
+            label-on="{{ opt.label }}"
+            label-off="{{ opt.label }}"
+            show-labels="true"
+            label-position="right">
+        </umb-toggle>
+    </div>
+</div>

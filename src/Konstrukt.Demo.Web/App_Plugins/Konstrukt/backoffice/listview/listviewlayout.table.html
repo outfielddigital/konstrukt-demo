@@ -1,0 +1,59 @@
+﻿<div ng-controller="Konstrukt.Controllers.ListViewLayoutController" class="konstrukt">
+
+    <table class="konstrukt-table" ng-if="items">
+
+        <!-- Listviews head section -->
+        <thead>
+            <tr>
+                <td>
+                    <button type="button" class="umb-table__action" ng-show="options.bulkActionsAllowed" ng-click="selectAll()">
+                        <umb-checkmark checked="isSelectedAll()" size="xs"></umb-checkmark>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="umb-table-head__link sortable" ng-click="sort('Name', true, true)">
+                        <localize key="general_name">Name</localize>
+                        <i class="umb-table-head__icon icon" aria-hidden="true" ng-class="{'icon-navigation-up': isSortDirection('Name', 'asc'), 'icon-navigation-down': isSortDirection('Name', 'desc')}"></i>
+                    </button>
+                </td>
+                <td ng-repeat="column in options.includeProperties track by column.alias">
+                    <button type="button" class="umb-table-head__link" ng-click="sort(column.alias, column.allowSorting, column.isSystem)" ng-class="{'sortable':column.allowSorting}">
+                        <span ng-bind="column.header"></span>
+                        <i class="umb-table-head__icon icon" aria-hidden="true" ng-class="{'icon-navigation-up': isSortDirection(column.alias, 'asc'), 'icon-navigation-down': isSortDirection(column.alias, 'desc')}"></i>
+                    </button>
+                </td>
+                <td ng-if="options.rowActions && options.rowActions.length" style="width: 0.1px;" align="right"><span style="text-transform: none;">Actions</span></td>
+            </tr>
+        </thead>
+
+        <!-- Listview body section -->
+        <tbody>
+            <tr class="tr-selectable umb-outline"
+                 ng-repeat="item in items track by $index"
+                 ng-init="item.icon = getIcon(item)"
+                 ng-class="{'tr-selected':item.selected}"
+                 ng-click="selectItem(item, $index, $event)">
+
+                <td>
+                    <umb-icon icon="{{item.icon}}" class="umb-table-body__icon umb-table-body__fileicon" ng-if="!item.selected"></umb-icon>
+                    <umb-icon icon="icon-check" class="umb-table-body__icon umb-table-body__checkicon" ng-if="item.selected"></umb-icon>
+                </td>
+                <td>
+                    <a title="{{item.name}}" class="umb-table-body__link" ng-href="{{'#' + item.editPath}}" ng-click="clickItem(item, $event)">
+                        <span ng-bind="item.name"></span>
+                    </a>
+                </td>
+                <td ng-repeat="column in options.includeProperties track by column.alias" data-prop="{{column.alias | lowercase}}" ng-style="{ 'width' : item.propertyMap[column.alias].width }">
+                    <span ng-if="!item.propertyMap[column.alias].markup" title="{{column.header}}: {{item.propertyMap[column.alias].value}}">
+                        {{item.propertyMap[column.alias].value}}
+                    </span>
+                    <div ng-if="item.propertyMap[column.alias].markup" title="{{column.header}}: {{item.propertyMap[column.alias].value}}" style="width: 100%;" ng-bind-html="item.propertyMap[column.alias].markup | safe_html"></div>
+                </td>
+                <td ng-if="options.rowActions && options.rowActions.length" align="right">
+                    <umb-property-actions actions="rowActionsFactory(item)" class="umb-property-actions__right" ng-click="$event.stopPropagation();"></umb-property-actions>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

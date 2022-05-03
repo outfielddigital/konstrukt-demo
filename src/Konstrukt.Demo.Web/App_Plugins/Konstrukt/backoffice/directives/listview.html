@@ -26,16 +26,15 @@
                         label="Clear selection"
                         label-key="buttons_clearSelection"
                         action="clearSelection()"
-                        disabled="actionInProgress">
+                        disabled="bulkActionInProgress">
                     </umb-button>
                 </div>
             </umb-editor-sub-header-section>
 
             <!-- Selection Info -->
             <umb-editor-sub-header-section ng-if="isAnythingSelected()">
-                <strong ng-show="!actionInProgress">{{ selection.length }} <localize key="general_of">of</localize> {{ listViewResultSet.items.length }} <localize key="general_selected">selected</localize></strong>
-                <strong ng-show="actionInProgress" ng-bind="bulkStatus"></strong>
-                <div class="umb-loader-wrapper -bottom" ng-show="actionInProgress">
+                <strong ng-show="!bulkActionInProgress">{{ selection.length }} <localize key="general_of">of</localize> {{ listViewResultSet.items.length }} <localize key="general_selected">selected</localize></strong>
+                <div class="umb-loader-wrapper -bottom" ng-show="bulkActionInProgress">
                     <div class="umb-loader"></div>
                 </div>
             </umb-editor-sub-header-section>
@@ -45,8 +44,16 @@
 
         <umb-editor-sub-header-content-right>
 
+            <!--Filters -->
+            <umb-editor-sub-header-section ng-if="!isAnythingSelected() && options.filters.length > 0">
+                <button type="button" aria-expanded="false" class="umb-layout-selector__active-layout umb-outline" ng-class="{ 'btn-filter--has-filter' : hasFilterValues() }" ng-click="openFilter()" style="width: auto; min-width: 30px;">
+                    <umb-icon icon="icon-filter"></umb-icon> 
+                    <span ng-if="appliedFilterCount() > 0" style="font-size: 15px; line-height: 15px; font-weight: bold; padding: 0 2px;">{{ appliedFilterCount() }}</span>
+                </button>
+            </umb-editor-sub-header-section>
+
             <!-- View Toggle -->
-            <umb-editor-sub-header-section ng-if="!isAnythingSelected()">
+            <umb-editor-sub-header-section ng-if="!isAnythingSelected() && options.layout.layouts.length > 1">
 
                 <umb-layout-selector ng-if="options.layout.layouts"
                         layouts="options.layout.layouts"
@@ -83,7 +90,7 @@
                     label="{{ bulkAction.name }}"
                     icon="{{ bulkAction.icon }}"
                     action="performBulkAction(bulkAction)"
-                    disabled="actionInProgress"
+                    disabled="bulkActionInProgress"
                     size="xs"
                     add-ellipsis="true">
                 </umb-button>
@@ -102,7 +109,8 @@
         options="options"
         entity-type="Konstrukt"
         on-get-content="getContent(contentId)"
-        on-item-click="openItem(item)">
+        on-item-click="openItem(item)"
+        on-item-action-click="performRowAction(action, item.id)">
     </umb-list-view-layout>
 
     <umb-empty-state ng-if="viewLoaded && (!listViewResultSet.items || listViewResultSet.items.length === 0)" position="center">

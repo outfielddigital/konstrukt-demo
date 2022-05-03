@@ -6,19 +6,21 @@
 
     'use strict';
 
-    function konstruktListView($routeParams, $injector, $timeout, listViewHelper, notificationsService, localizationService, editorService, konstruktUtils) {
+    function konstruktListView($routeParams, listViewHelper, editorService, localStorageService, konstruktActions, konstruktUtils) {
 
         function link($scope, el, attr, ctrl) {
             
             $scope.entityId = $routeParams.id;
 
             $scope.pagination = [];
-            $scope.actionInProgress = false;
+            $scope.bulkActionInProgress = false;
             $scope.selection = [];
             $scope.listViewResultSet = {
                 totalPages: 1,
                 items: []
             };
+
+            var filterCacheKey = "konstrukt_" + $scope.collection.alias +"_filters";
 
             $scope.options = angular.extend({}, {
                 pageNumber: ($routeParams.page && !isNaN($routeParams.page) && Number($routeParams.page) > 0) ? $routeParams.page : 1,
@@ -32,8 +34,11 @@
                         itm.group = undefined;
                     return itm;
                 }),
+                filters: $scope.opts.filters,
+                filterValues: localStorageService.get(filterCacheKey) || {},
                 bulkActions: $scope.opts.bulkActions,
                 bulkActionsAllowed: $scope.opts.bulkActions && $scope.opts.bulkActions.length > 0,
+                rowActions: $scope.opts.rowActions,
                 isSearchable: $scope.opts.isSearchable,
                 orderBySystemField: true,
                 includeProperties: $scope.opts.properties,
@@ -42,6 +47,30 @@
                     activeLayout: listViewHelper.getLayout($routeParams.id, $scope.opts.layouts)
                 },
                 showCreateButton: $scope.opts.showCreateButton
+            });
+
+            var filterDialogOptions = {
+                view: '/App_Plugins/Konstrukt/backoffice/dialogs/filter.html',
+                size: 'small',
+                config: {
+                    name: "Filter Results",
+                    filters: $scope.options.filters
+                },
+                submit: function (values) {
+                    localStorageService.set(filterCacheKey, values);
+                    $scope.options.filterValues = values;
+                    $scope.options.pageNumber = 1;
+                    $scope.reloadView($scope.entityId);
+                    editorService.close();
+                },
+                close: function () {
+                    editorService.close();
+                }
+            };
+
+            Object.defineProperty(filterDialogOptions, "infiniteMode", {
+                get: () => false,
+                set: (value) => false
             });
 
             var searchListView = _.debounce(function () {
@@ -57,51 +86,12 @@
                 }
             }
 
-            function showNotificationsAndReset(err, reload, successMsg) {
-
-                //check if response is ysod
-                if (err.status && err.status >= 500) {
-
-                    // Open ysod overlay
-                    $scope.ysodOverlay = {
-                        view: "ysod",
-                        error: err,
-                        show: true
-                    };
-                }
-
-                $timeout(function () {
-                    $scope.bulkStatus = "";
-                    $scope.actionInProgress = false;
-                },
-                    500);
-
-                if (reload === true) {
-                    $scope.reloadView($scope.entityId);
-                }
-
-                if (err.data && angular.isArray(err.data.notifications)) {
-                    for (var i = 0; i < err.data.notifications.length; i++) {
-                        notificationsService.showNotification(err.data.notifications[i]);
-                    }
-                } else if (successMsg) {
-                    localizationService.localize("bulk_done")
-                        .then(function (v) {
-                            notificationsService.success(v, successMsg);
-                        });
-                }
+            $scope.hasFilterValues = function () {
+                return Object.keys($scope.options.filterValues).length > 0;
             }
 
-            function serial(selected, fn, getProgressMsg, index) {
-                return fn(selected, index).then(function (content) {
-                    index++;
-                    $scope.bulkStatus = getProgressMsg(index, selected.length);
-                    return index < selected.length ? serial(selected, fn, getProgressMsg, index) : content;
-                }, function (err) {
-                    var reload = index > 0;
-                    showNotificationsAndReset(err, reload);
-                    return err;
-                });
+            $scope.appliedFilterCount = function () {
+                return Object.keys($scope.options.filterValues).length;
             }
 
             $scope.forceSearch = function (ev) {
@@ -130,8 +120,19 @@
             };
 
             $scope.clearSelection = function () {
+                $scope.bulkActionInProgress = false;
                 listViewHelper.clearSelection($scope.listViewResultSet.items, false, $scope.selection);
             };
+
+            $scope.performRowAction = function (action, id) {
+
+                konstruktActions.performAction($scope.collection.alias,
+                    action,
+                    (settings) => $scope.onAction({ action, ids: [id], settings }),
+                    null,
+                    () => $scope.clearSelection());
+
+            }
 
             $scope.performBulkAction = function (bulkAction) {
 
@@ -139,41 +140,26 @@
                 if (selected.length === 0)
                     return;
 
-                if (!bulkAction.angularServiceName)
-                    return; // TODO: Error
+                var ids = selected.map(s => s.id);
 
-                var bulkActionService = $injector.get(bulkAction.angularServiceName);
-                if (!bulkActionService || !bulkActionService.performAction)
-                    return; // TODO: Error
+                $scope.bulkActionInProgress = true;
 
-
-                if (bulkActionService.getConfirmMessage && !confirm(bulkActionService.getConfirmMessage(selected.length)))
-                    return;
-
-                var getProgressMsg = bulkActionService.getProgressMessage || function (count, total) {
-                    return count + " of " + total + " items processed";
-                };
-
-                var getCompleteMsg = bulkActionService.getCompleteMessage || function (total) {
-                    return total + " items successfully processed";
-                };
-
-                $scope.actionInProgress = true;
-                $scope.bulkStatus = getProgressMsg(0, selected.length);
-
-                return serial(selected, function (selected, index) {
-                    return bulkActionService.performAction($scope.collection.alias, selected[index].id);
-                }, getProgressMsg, 0).then(function (result) {
-                    // executes once the whole selection has been processed
-                    // in case of an error (caught by serial), result will be the error
-                    if (!(result.data && angular.isArray(result.data.notifications)))
-                        showNotificationsAndReset(result, true, getCompleteMsg(selected.length));
-                });
+                konstruktActions.performAction($scope.collection.alias,
+                    bulkAction,
+                    (settings) => $scope.onAction({ action: bulkAction, ids, settings }),
+                    () => $scope.bulkActionInProgress = false,
+                    () => $scope.clearSelection());
+                
             };
 
             $scope.selectLayout = function (selectedLayout) {
                 $scope.options.layout.activeLayout = listViewHelper.setLayout($routeParams.id, selectedLayout, $scope.options.layout.layouts);
             };
+
+            $scope.openFilter = function () {
+                filterDialogOptions.config.values = $scope.options.filterValues;
+                editorService.open(filterDialogOptions);
+            }
 
             $scope.nextPage = function (pageNumber) {
                 $scope.options.pageNumber = pageNumber;
@@ -200,7 +186,7 @@
 
                     $scope.onGetItems({ id: id, options: $scope.options }).then(function (data) {
 
-                        $scope.actionInProgress = false;
+                        $scope.bulkActionInProgress = false;
                         $scope.listViewResultSet = data;
 
                         // Clear out items collection if there aren't any items
@@ -208,12 +194,18 @@
                             $scope.listViewResultSet.items = false;
                         }
 
-                        // Copy all property values to be object level variables
+                        // Create a property map by alias and copy all property values to be object level variables
                         if ($scope.listViewResultSet.items) {
                             _.each($scope.listViewResultSet.items, function (e, index) {
+
+                                e.propertyMap = e.properties.reduce((acc, prop) => {
+                                    return { ...acc, [prop.alias]: prop };
+                                }, {});
+
                                 _.each(e.properties, function (p, index) {
                                     e[p.alias] = p.value;
                                 });
+
                             });
                         }
 
@@ -243,9 +235,6 @@
                 if ($scope.onItemClick) {
                     $scope.onItemClick({ item: item});
                 }
-                // It's important we return true as we use this to signify to the list view override
-                // that the click has been handled
-                return true;
             };
 
             $scope.createItem = function () {
@@ -285,6 +274,7 @@
                 opts: '=options',
                 onGetItems: '&',
                 onItemClick: '&',
+                onAction: '&',
                 onItemCreate: '&',
             },
             link: link

@@ -221,7 +221,7 @@
     border-radius: 3px;
     padding: 15px;
     border: solid 1px #f5f5f5;
-    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 16%);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16);
 }
 
 .konstrukt-card__icon {
@@ -262,4 +262,143 @@
     font-weight: bold;    
     font-size: 12px;
     color: #888;
+}
+
+/* Konstrukt Table */
+.konstrukt-table {
+    width: 100%;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 3px;
+}
+
+.konstrukt-table td {
+    position: relative;
+    padding: 6px 16px;
+}
+
+.konstrukt-table td:first-of-type {
+    padding: 15px 0 15px 15px;
+    width: 1px;
+}
+
+.konstrukt-table thead tr {
+    font-size: 14px;
+    font-weight: 700;
+    color: #a2a1a6;
+}
+
+.konstrukt-table tbody tr {
+    color: #817f85;
+    border-top: 1px solid #e9e9eb;
+    font-size: 14px;
+    position: relative;
+    min-height: 52px;
+}
+
+.konstrukt-table tbody .umb-icon {
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 20px;
+    color: #1b264f;
+    vertical-align: bottom;
+    text-decoration: none;
+}
+
+.konstrukt-table .tr-selectable
+{
+    position: relative;
+    cursor: pointer;
+}
+
+.konstrukt-table .tr-selectable:after,
+.konstrukt-table .tr-selected:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    left: 1px;
+    right: 2px;
+    bottom: 2px;
+    border: 2px solid #3544b1;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.konstrukt-table .tr-selectable:hover:after {
+    opacity: .33;
+}
+
+.konstrukt-table .tr-selected:after {
+    opacity: 1 !important;
+}
+
+.konstrukt-table .umb-table-body__checkicon {
+    color: #3544b1 !important;
+}
+.konstrukt-table .tr-selected.-selectable:hover .umb-table-body__checkicon {
+    color: #3544b1;
+}
+
+/* Align property actions to the right */
+.umb-property-actions__right {
+    position: relative;
+    display: inline-block;
+}
+
+.umb-property-actions__right .umb-property-actions__menu,
+.umb-property-actions__right .umb-property-actions__menu-open-toggle {
+    right: 0;
+}
+
+/* Konstrukt Filter Dialog */
+.konstrukt__filter .umb-control-group:after {
+    margin-top: 20px;
+}
+
+.konstrukt__filter .umb-control-group:last-of-type:after {
+    margin-top: 0;
+    background-color: transparent;
+}
+
+.konstrukt__filter .control-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.konstrukt__filter .control-header {
+    margin-bottom: 8px;
+}
+.konstrukt__filter .control-label {
+    margin-bottom: 0;
+}
+
+.flatpickr-clear {
+    display: block;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.flatpickr-clear:hover {
+    background-color: #f7f7f7;
+}
+
+.konstrukt__filter .flatpickr-input {
+    background-color: white !important;
+}
+
+.konstrukt .btn-filter--has-filter {
+    background: #1B264E;
+    color: white;
+    border-color: #1b264f;
+}
+
+.konstrukt .btn-filter--has-filter:hover,
+.konstrukt .btn-filter--has-filter:focus {
+    border-color: #2152a3;
+    background-color: #2152a3;
+    color: white;
+}
+
+.konstrukt__filter input,
+.konstrukt__filter select {
+    margin-bottom: 0;
 }

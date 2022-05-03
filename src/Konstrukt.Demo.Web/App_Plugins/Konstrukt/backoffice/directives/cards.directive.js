@@ -41,8 +41,27 @@
         
             $scope.value = "-";
 
-            konstruktResource.getCardValue($scope.collectionAlias, $scope.card.alias, $scope.parentEntityId).then(function (val) {
-                $scope.value = val;
+            var init = function () {
+                konstruktResource.getCardValue($scope.collectionAlias, $scope.card.alias, $scope.parentEntityId).then(function (val) {
+                    $scope.value = val;
+                });
+            }
+
+            init();
+
+            // Event listeners
+            var evts = [];
+
+            // When list view re-loads, re-fetch card values
+            evts.push($scope.$on("konstrukt.reloadListView", function (event, args) {
+                init();
+            }));
+
+            //ensure to unregister from all events!
+            $scope.$on('$destroy', function () {
+                for (var e in evts) {
+                    evts[e]();
+                }
             });
         }
 

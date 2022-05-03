@@ -17,7 +17,7 @@
             // need to provide an explicit redirect ID
             var oldHandleSuccessfulSave = $delegate.handleSuccessfulSave;
             $delegate.handleSuccessfulSave = function (args) {
-                if (args.scope.vm.redirectId) {
+                if (args.scope && args.scope.vm && args.scope.vm.redirectId) {
                     args.redirectId = args.scope.vm.redirectId;
                 }
                 oldHandleSuccessfulSave.apply($delegate, arguments);
@@ -37,7 +37,8 @@
         $provide.decorator('umbListViewLayoutDirective', function ($delegate) {
             var directive = $delegate[0];
             angular.extend(directive.scope, {
-                'onItemClick': '&'
+                'onItemClick': '&',
+                'onItemActionClick': '&'
             });
             return $delegate;
         });
@@ -45,50 +46,6 @@
     }
 
     angular.module("umbraco.directives").config(['$provide', konstruktListViewLayoutDirectiveOverride]);
-
-    // Call on list view item click function if defined on parent directive
-    function konstruktListViewLayoutControllerOverrides($provide) {
-
-        $provide.decorator('$controller', function ($delegate) {
-
-            return function (expression, locals, later, indent) {
-
-                if (locals.$attrs && locals.$attrs.ngController && locals.$attrs.ngController.startsWith("Umbraco.PropertyEditors.ListView.ListLayoutController"))
-                {
-                    var ctrl1 = $delegate(expression, locals, false, indent);
-
-                    var oldClickItem = ctrl1.clickItem;
-                    ctrl1.clickItem = function (item) {
-                        if (!locals.$scope.onItemClick || !locals.$scope.onItemClick({ item: item})) {
-                            oldClickItem.apply(ctrl1, arguments);
-                        }
-                    };
-
-                    return () => ctrl1;
-                }
-
-                if (locals.$attrs && locals.$attrs.ngController && locals.$attrs.ngController.startsWith("Umbraco.PropertyEditors.ListView.GridLayoutController"))
-                {
-                    var ctrl2 = $delegate(expression, locals, false, indent);
-
-                    var oldGoToItem = ctrl2.goToItem;
-                    ctrl2.goToItem = function (item) {
-                        if (!locals.$scope.onItemClick || !locals.$scope.onItemClick({ item: item})) {
-                            oldGoToItem.apply(ctrl2, arguments);
-                        }
-                    };
-
-                    return () => ctrl2;
-                }
-
-                return $delegate(expression, locals, later, indent);
-            };
-
-        });
-
-    }
-
-    angular.module("umbraco").config(['$provide', konstruktListViewLayoutControllerOverrides]);
 
     // Umbraco resource overrides
     function konstruktUmbracoResourceOverrides($provide) {

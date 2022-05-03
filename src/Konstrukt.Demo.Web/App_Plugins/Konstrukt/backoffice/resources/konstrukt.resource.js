@@ -6,7 +6,7 @@
 
     'use strict';
 
-    function konstruktResource($http, umbRequestHelper, konstruktRequestHelper) {
+    function konstruktResource($http, umbRequestHelper, konstruktRequestHelper, konstruktActionResultHandlers) {
 
         var api = {
 
@@ -102,15 +102,19 @@
             getEntities: function (collectionAlias, options) {
                 return umbRequestHelper.resourcePromise(
                     $http({
-                        url: konstruktRequestHelper.getApiUrl("konstruktApiBaseUrl", "GetEntities"),
-                        method: "GET",
-                        params: {
+                        url: konstruktRequestHelper.getApiUrl("konstruktApiBaseUrl", "FindEntities"),
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: {
                             collectionAlias: collectionAlias,
                             pageNumber: options.pageNumber,
                             pageSize: options.pageSize,
                             orderBy: options.orderBy,
                             orderDirection: options.orderDirection,
                             query: options.filter,
+                            filters: options.filterValues,
                             dataViewAlias: options.dataViewAlias
                         }
                     }),
@@ -121,9 +125,12 @@
             getChildEntities: function (collectionAlias, parentId, options) {
                 return umbRequestHelper.resourcePromise(
                     $http({
-                        url: konstruktRequestHelper.getApiUrl("konstruktApiBaseUrl", "GetEntities"),
-                        method: "GET",
-                        params: {
+                        url: konstruktRequestHelper.getApiUrl("konstruktApiBaseUrl", "FindEntities"),
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: {
                             collectionAlias: collectionAlias,
                             parentId: parentId,
                             pageNumber: options.pageNumber,
@@ -131,6 +138,7 @@
                             orderBy: options.orderBy,
                             orderDirection: options.orderDirection,
                             query: options.filter,
+                            filters: options.filterValues,
                             dataViewAlias: options.dataViewAlias
                         }
                     }),
@@ -225,8 +233,46 @@
                             parentId: parentId
                         }
                     }),
-                    'Failed to get entity total record count'
+                    'Failed to get card value'
                 );
+            },
+
+            getSettingsScaffold: function (collectionAlias, settingsSourceType, settingsSourceAlias) {
+                return umbRequestHelper.resourcePromise(
+                    $http({
+                        url: konstruktRequestHelper.getApiUrl("konstruktApiBaseUrl", "GetSettingsScaffold"),
+                        method: "GET",
+                        params: {
+                            collectionAlias: collectionAlias,
+                            settingsSourceType: settingsSourceType,
+                            settingsSourceAlias: settingsSourceAlias
+                        }
+                    }),
+                    'Failed to get settings'
+                );
+            },
+
+            performAction: function (collectionAlias, actionType, actionAlias, ids, settings, resultType) {
+
+                var cfg = {
+                    url: konstruktRequestHelper.getApiUrl("konstruktApiBaseUrl", "PerformAction"),
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        collectionAlias: collectionAlias,
+                        actionType: actionType,
+                        actionAlias: actionAlias,
+                        ids: ids,
+                        settings: settings
+                    }
+                };
+
+                var handler = konstruktActionResultHandlers.getHandler(resultType);
+                if (handler && handler.configureRequest) handler.configureRequest(cfg);
+
+                return $http(cfg);
             }
 
         };
