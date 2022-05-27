@@ -16,5 +16,6 @@
   </area>
   <area alias="actions">
     <key alias="delete" autogen="true">Delete</key>
+    <key alias="changestatus" autogen="true">Change Status</key>
   </area>
 </language>

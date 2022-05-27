@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Konstrukt.Demo.Actions;
 using Konstrukt.Demo.DataViews;
 using Konstrukt.Demo.Models;
 using Konstrukt.Demo.ValueMappers;
@@ -24,6 +25,7 @@ namespace Konstrukt.Demo
                         .SetNameProperty(c => c.Name)
                         .SetDateCreatedProperty(c => c.DateCreated)
                         .AddSearchableProperty(c => c.Email)
+                        .AddAction<ChangeStatusAction>()
                         .ListView(listViewConfig => listViewConfig
                             .AddField(c => c.Email)
                             .AddField(c => c.Status)
@@ -48,6 +50,7 @@ namespace Konstrukt.Demo
                         .SetDateCreatedProperty(c => c.DateCreated)
                         .AddSearchableProperty(c => c.Email)
                         .SetFilter(x => x.Status == CommentStatus.Pending)
+                        .AddAction<ChangeStatusAction>()
                         .DisableCreate()
                         .ListView(listViewConfig => listViewConfig
                             .AddField(c => c.Email)
@@ -78,6 +81,7 @@ namespace Konstrukt.Demo
                             .AddCard("Pending Comments", "icon-chat", x => x.Status == CommentStatus.Pending).SetColor("orange")
                             .AddCard("Total Comments", "icon-chat", x => x.Status == CommentStatus.Pending || x.Status == CommentStatus.Approved || x.Status == CommentStatus.Rejected)
                             .SetDataViewsBuilder<CommentStatusDataViewsBuilder>()
+                            .AddAction<ChangeStatusAction>()
                             .ListView(listViewConfig => listViewConfig
                                 .AddField(c => c.Email)
                                 .AddField(c => c.Status)
