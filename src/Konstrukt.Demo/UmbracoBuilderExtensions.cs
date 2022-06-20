@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using Konstrukt.Demo.Actions;
 using Konstrukt.Demo.DataViews;
 using Konstrukt.Demo.Models;
 using Konstrukt.Demo.ValueMappers;
@@ -24,6 +24,7 @@ namespace Konstrukt.Demo
                         .SetNameProperty(c => c.Name)
                         .SetDateCreatedProperty(c => c.DateCreated)
                         .AddSearchableProperty(c => c.Email)
+                        .AddAction<ChangeStatusAction>()
                         .ListView(listViewConfig => listViewConfig
                             .AddField(c => c.Email)
                             .AddField(c => c.Status)
@@ -48,6 +49,7 @@ namespace Konstrukt.Demo
                         .SetDateCreatedProperty(c => c.DateCreated)
                         .AddSearchableProperty(c => c.Email)
                         .SetFilter(x => x.Status == CommentStatus.Pending)
+                        .AddAction<ChangeStatusAction>()
                         .DisableCreate()
                         .ListView(listViewConfig => listViewConfig
                             .AddField(c => c.Email)
@@ -56,7 +58,7 @@ namespace Konstrukt.Demo
                         .Editor(editorConfig => editorConfig
                             .AddTab("General", tabConfig => tabConfig
                                 .AddFieldset("General", fieldsetConfig => fieldsetConfig
-                                    .AddField(c => c.NodeUdi).SetLabel("Node").SetDataType("Content Picker").SetValueMapper<UdiToIntContentPickerValueMapper>()
+                                    .AddField(c => c.NodeUdi).SetLabel("Node").SetDataType("Content Picker")
                                     .AddField(c => c.Email).SetValidationRegex("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+")
                                     .AddField(c => c.Body).SetDataType("Textarea")
                                     .AddField(c => c.Status).SetDataType("Comment Status").SetValueMapper<EnumDropdownValueMapper<CommentStatus>>()
@@ -78,6 +80,7 @@ namespace Konstrukt.Demo
                             .AddCard("Pending Comments", "icon-chat", x => x.Status == CommentStatus.Pending).SetColor("orange")
                             .AddCard("Total Comments", "icon-chat", x => x.Status == CommentStatus.Pending || x.Status == CommentStatus.Approved || x.Status == CommentStatus.Rejected)
                             .SetDataViewsBuilder<CommentStatusDataViewsBuilder>()
+                            .AddAction<ChangeStatusAction>()
                             .ListView(listViewConfig => listViewConfig
                                 .AddField(c => c.Email)
                                 .AddField(c => c.Status)
